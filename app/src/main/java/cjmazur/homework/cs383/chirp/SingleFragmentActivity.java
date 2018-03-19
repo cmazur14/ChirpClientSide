@@ -9,5 +9,7 @@ public class SingleFragmentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_fragment);
+
+        //now there's a comment in it!
     }
 }
