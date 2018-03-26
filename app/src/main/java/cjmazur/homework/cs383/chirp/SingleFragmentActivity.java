@@ -12,4 +12,12 @@ public class SingleFragmentActivity extends AppCompatActivity {
 
         //now there's a comment in it!
     }
+
+//    private void sendListOfUsersRequest() {
+//        RequestQueue queue = Volley.newRequestQueue(this);
+//        String url = "http://10.0.2.2:5010/users";
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response, new Response.ErrorListener());
+//        queue.add(stringRequest);
+//    }
+
 }
