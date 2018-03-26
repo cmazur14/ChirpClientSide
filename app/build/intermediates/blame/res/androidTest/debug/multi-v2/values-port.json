@@ -19,7 +19,7 @@
             "outputFile": "D:\\AndroidProjects\\ChirpClientSide\\app\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-port\\values-port.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b89f3eb5ed949cbef0eea71b0092cb43\\res\\values-port\\values-port.xml",
+                    "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.0.aar\\2f56d896a23dbcd16276f31956b877df\\res\\values-port\\values-port.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
