@@ -66,18 +66,7 @@ public class LoginActivity extends AppCompatActivity {
             passwordField.setText(login.getUserPassword());
         }
 
-        /* uncomment this and then run it to delete any saved login information
-        login = null;
-        saveUserLogin();
-        */
     }
-
-//    private void sendListOfUsersRequest() {
-//        RequestQueue queue = Volley.newRequestQueue(this);
-//        String url = "http://10.0.2.2:5010/users";
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response, new Response.ErrorListener());
-//        queue.add(stringRequest);
-//    }
 
     private void saveUserLogin() {
         try {
@@ -111,6 +100,11 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Login information could not be loaded", Toast.LENGTH_SHORT).show();
             login = null;
         }
+    }
+
+    public void deleteSavedUserLoginInformation() {
+        login = null;
+        saveUserLogin();
     }
 
 
