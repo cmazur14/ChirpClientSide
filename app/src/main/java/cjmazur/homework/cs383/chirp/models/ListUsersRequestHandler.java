@@ -19,5 +19,7 @@ class ListUsersRequestHandler {
             userList = new ArrayList<>();
         }
         return userList;
+
+        //put a comment here so I could commit a change
     }
 }
