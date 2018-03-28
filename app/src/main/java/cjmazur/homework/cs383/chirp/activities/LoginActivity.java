@@ -2,6 +2,7 @@ package cjmazur.homework.cs383.chirp.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -50,6 +51,13 @@ public class LoginActivity extends AppCompatActivity {
         emailField = findViewById(R.id.login_email);
         passwordField = findViewById(R.id.login_password);
         registerTextView = findViewById(R.id.login_register);
+        loginButton = findViewById(R.id.login_button);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO add an if-statement that verifies things with the server
+            }
+        });
 
         //if there is a user login already saved, this will load it into the text fields
         loadUserLogin();
@@ -58,9 +66,10 @@ public class LoginActivity extends AppCompatActivity {
             passwordField.setText(login.getUserPassword());
         }
 
-        //TODO remove this next bit, so that the login info is not set using its default values whenever the server starts working
-        login = new UserLoginInfo();
+        /* uncomment this and then run it to delete any saved login information
+        login = null;
         saveUserLogin();
+        */
     }
 
 //    private void sendListOfUsersRequest() {
