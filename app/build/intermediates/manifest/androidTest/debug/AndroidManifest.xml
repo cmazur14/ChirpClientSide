@@ -3,8 +3,8 @@
     package="cjmazur.homework.cs383.chirp.test" >
 
     <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="26" />
+        android:minSdkVersion="17"
+        android:targetSdkVersion="27" />
 
     <instrumentation
         android:name="android.support.test.runner.AndroidJUnitRunner"
