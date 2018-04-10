@@ -1,5 +1,6 @@
 package cjmazur.homework.cs383.chirp.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -51,11 +52,24 @@ public class LoginActivity extends AppCompatActivity {
         emailField = findViewById(R.id.login_email);
         passwordField = findViewById(R.id.login_password);
         registerTextView = findViewById(R.id.login_register);
+        registerTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = RegistrationActivity.newIntent(view.getContext());
+                startActivity(intent);
+            }
+        });
         loginButton = findViewById(R.id.login_button);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO add an if-statement that verifies things with the server
+                if (verifyUser(emailField.getText().toString(), passwordField.getText().toString())) {
+                    //TODO set it up so it gets and starts the intent for the logged-in user to go to the correct page
+                } else {
+                    Toast.makeText(LoginActivity.this, "We're sorry, but that login information doesn't seem to be in our system. Please try a different email and password, or register as a new user!", Toast.LENGTH_LONG).show();
+                    emailField.setText("");
+                    passwordField.setText("");
+                }
             }
         });
 
@@ -66,6 +80,11 @@ public class LoginActivity extends AppCompatActivity {
             passwordField.setText(login.getUserPassword());
         }
 
+    }
+
+    private boolean verifyUser(String userEmail, String userPassword) {
+        //TODO verify the user with the server
+        return false;
     }
 
     private void saveUserLogin() {
