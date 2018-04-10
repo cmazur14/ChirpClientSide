@@ -23,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="cjmazur.homework.cs383.chirp.activities.RegistrationActivity" />
     </application>
 
 </manifest>
