@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-22:12
-INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-22:12
-INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-22:12
-INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-22:12
+ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-23:12
+INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-23:12
+INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-23:12
+INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-23:12
 MERGED from [com.android.support:appcompat-v7:27.1.0] C:\Users\CJ\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.0.aar\d4a50862758efec1530b38c29c957b27\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:recyclerview-v7:27.1.0] C:\Users\CJ\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.1.0.aar\169ce8f6225ced680841705008826a61\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:cardview-v7:27.1.0] C:\Users\CJ\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.1.0.aar\08c9d3da48064de7eb92ad1c7b63b91d\AndroidManifest.xml:17:1-22:12
@@ -19,25 +19,25 @@ MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\CJ\.gradle\cac
 MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\CJ\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\61671e439b75b837028a62d02a4a685b\AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\CJ\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\b5f77bf6ab93669caa8f23266f86bd17\AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.core:runtime:1.1.0] C:\Users\CJ\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\a23bcd66c825e46a0af68335ed607f29\AndroidManifest.xml:17:1-22:12
-INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-22:12
-INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-22:12
-INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-22:12
+INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-23:12
+INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-23:12
+INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-23:12
 	package
 		ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:3:5-43
 		INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-22:12
+		ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-23:12
 		INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-22:12
+		ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:1-23:12
 		INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:2:11-69
 application
-ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:5:5-20:19
+ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:5:5-21:19
 MERGED from [com.android.volley:volley:1.1.0] C:\Users\CJ\.gradle\caches\transforms-1\files-1.1\volley-1.1.0.aar\aa442c2a8b1f52f9b0104e19b63665cd\AndroidManifest.xml:9:5-20
 MERGED from [com.android.volley:volley:1.1.0] C:\Users\CJ\.gradle\caches\transforms-1\files-1.1\volley-1.1.0.aar\aa442c2a8b1f52f9b0104e19b63665cd\AndroidManifest.xml:9:5-20
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\CJ\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\38d7da04a05a5886138a7669112749e8\AndroidManifest.xml:9:5-20
@@ -69,9 +69,13 @@ ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest
 	android:name
 		ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:16:27-74
 activity#cjmazur.homework.cs383.chirp.activities.RegistrationActivity
-ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:19:9-78
+ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:19:9-69
 	android:name
 		ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:19:19-66
+activity#cjmazur.homework.cs383.chirp.activities.RecentChirpsActivity
+ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:20:9-78
+	android:name
+		ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:20:19-66
 uses-sdk
 INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml
