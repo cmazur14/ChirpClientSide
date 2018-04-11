@@ -64,6 +64,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (verifyUser(emailField.getText().toString(), passwordField.getText().toString())) {
+                    Intent intent = RecentChirpsActivity.newIntent(view.getContext());
+                    startActivity(intent);
                     //TODO set it up so it gets and starts the intent for the logged-in user to go to the correct page
                 } else {
                     Toast.makeText(LoginActivity.this, "We're sorry, but that login information doesn't seem to be in our system. Please try a different email and password, or register as a new user!", Toast.LENGTH_LONG).show();
@@ -84,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean verifyUser(String userEmail, String userPassword) {
         //TODO verify the user with the server
-        return false;
+        return true;
     }
 
     private void saveUserLogin() {
