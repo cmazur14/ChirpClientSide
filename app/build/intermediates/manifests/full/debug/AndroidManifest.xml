@@ -26,6 +26,8 @@
         </activity>
         <activity android:name="cjmazur.homework.cs383.chirp.activities.RegistrationActivity" />
         <activity android:name="cjmazur.homework.cs383.chirp.activities.RecentChirpsActivity" />
+        <activity android:name="cjmazur.homework.cs383.chirp.activities.CreateChirpActivity" />
+        <activity android:name="cjmazur.homework.cs383.chirp.activities.EditWatchlistActivity" />
     </application>
 
 </manifest>
