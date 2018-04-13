@@ -9,15 +9,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import cjmazur.homework.cs383.chirp.models.Chirp;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import cjmazur.homework.cs383.chirp.R;
 
 public class RecentChirpsActivity extends AppCompatActivity {
+
+    private Button createChirpsButton;
+    private Button editWatchlistButton;
+    private RecyclerView chirpsView;
+    private ArrayList<Chirp> chirps;
+    private ChirpAdapter chirpsAdapter;
 
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, RecentChirpsActivity.class);
@@ -28,6 +39,39 @@ public class RecentChirpsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recent_chirps);
+        createChirpsButton = findViewById(R.id.create_chirp_button);
+        createChirpsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = CreateChirpActivity.newIntent(view.getContext());
+                startActivity(intent);
+            }
+        });
+        editWatchlistButton = findViewById(R.id.edit_watchlist_button);
+        editWatchlistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = EditWatchlistActivity.newIntent(view.getContext());
+                startActivity(intent);
+            }
+        });
+        chirpsView = findViewById(R.id.chirps_recycler_view);
+        chirps = new ArrayList<>();
+
+        updateChirpsList();
+    }
+
+    private void updateChirpsList() {
+        //TODO actually create things from the server
+        for (int i = 0; i < 25; i++) {
+            chirps.add(new Chirp(getString(R.string.chirp_content_placeholder),
+                    getString(R.string.chirp_date_placeholder),
+                    getString(R.string.chirp_author_placeholder),
+                    null));
+        }
+
+        chirpsAdapter = new ChirpAdapter(chirps);
+        chirpsView.setAdapter(chirpsAdapter);
     }
 
     private class chirpHolder extends RecyclerView.ViewHolder {
@@ -35,6 +79,8 @@ public class RecentChirpsActivity extends AppCompatActivity {
         private TextView date;
         private TextView content;
         private ImageView picture;
+
+        private Chirp chirp;
 
         public chirpHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.chirp_list_item, parent, false));
@@ -44,27 +90,30 @@ public class RecentChirpsActivity extends AppCompatActivity {
             picture = itemView.findViewById(R.id.chirp_image);
         }
 
-        public void bind(final String auth, final String da, @Nullable final String cont, @Nullable Image img) {
-            author.setText(auth);
-            date.setText(da);
-            if (cont != null)
-                content.setText(cont);
-            if (img != null);
-                //TODO
+        public void bind(Chirp inputChirp) {
+            chirp = inputChirp;
+            author.setText(chirp.getAuthor());
+            date.setText(chirp.getDate());
+            if (chirp.getMessage() != null) {
+                content.setText(chirp.getMessage());
+            }
+            else {
+                content.setVisibility(View.GONE);
+            }
+            if (chirp.getImage() != null) {
+                picture.setVisibility(View.VISIBLE);
+            }
+            else {
+                picture.setVisibility(View.GONE);
+            }
         }
     }
 
     private class ChirpAdapter extends RecyclerView.Adapter<chirpHolder> {
-        private ArrayList<String> authors;
-        private ArrayList<String> dates;
-        private ArrayList<String> contents;
-        private ArrayList<Image> pics;
+        private List<Chirp> chirps;
 
-        public ChirpAdapter(ArrayList<String> auths, ArrayList<String> das, ArrayList<String> conts, ArrayList<Image> imgs) {
-            authors = auths;
-            dates = das;
-            contents = conts;
-            pics= imgs;
+        public ChirpAdapter(List<Chirp> listOfChirps) {
+            chirps = listOfChirps;
         }
 
         @NonNull
@@ -76,12 +125,12 @@ public class RecentChirpsActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull chirpHolder holder, int position) {
-            holder.bind(authors.get(position), dates.get(position), contents.get(position), pics.get(position));
+            holder.bind(chirps.get(position));
         }
 
         @Override
         public int getItemCount() {
-            return authors.size();
+            return chirps.size();
         }
     }
 }
