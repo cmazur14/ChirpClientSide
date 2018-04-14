@@ -19,7 +19,7 @@
         <activity android:name=".activities.RegistrationActivity" />
         <activity android:name=".activities.RecentChirpsActivity" />
         <activity android:name=".activities.CreateChirpActivity" />
-        <activity android:name=".activities.EditWatchlistActivity"></activity>
+        <activity android:name=".activities.EditWatchlistActivity" />
     </application>
 
 </manifest>

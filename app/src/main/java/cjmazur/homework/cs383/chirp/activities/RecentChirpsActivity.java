@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +58,7 @@ public class RecentChirpsActivity extends AppCompatActivity {
             }
         });
         chirpsView = findViewById(R.id.chirps_recycler_view);
+        chirpsView.setLayoutManager(new LinearLayoutManager(this));
         chirps = new ArrayList<>();
 
         updateChirpsList();
@@ -119,7 +122,7 @@ public class RecentChirpsActivity extends AppCompatActivity {
         @NonNull
         @Override
         public chirpHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(getParent());
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             return new chirpHolder(inflater, parent);
         }
 

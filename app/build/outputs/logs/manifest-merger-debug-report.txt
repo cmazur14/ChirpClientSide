@@ -81,7 +81,7 @@ ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest
 	android:name
 		ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:21:19-65
 activity#cjmazur.homework.cs383.chirp.activities.EditWatchlistActivity
-ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:22:9-79
+ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:22:9-70
 	android:name
 		ADDED from C:\Users\CJ\AndroidStudioProjects\Chirp2\app\src\main\AndroidManifest.xml:22:19-67
 uses-sdk
