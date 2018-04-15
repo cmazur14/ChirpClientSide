@@ -13,15 +13,27 @@ class User {
     private String password;
     private String handle;
     private UUID id;
-    private ArrayList<Chirp> chirpList;
+    private ArrayList<UUID> chirpList;
+    private ArrayList<UUID> userPreferences; //TODO set this up
 
-    public User(String name, String email, String password, String handle, UUID id, ArrayList<Chirp> chirpList) {
+    public User(String name, String email, String password, String handle, UUID id, ArrayList<UUID> chirpList, ArrayList<UUID> userPreferences) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.handle = handle;
         this.id = id;
         this.chirpList = chirpList;
+        this.userPreferences = userPreferences;
+    }
+
+    public User() {
+        name = "Fred Flintstone";
+        email = "john.doe@gmail.com";
+        password = "pw";
+        handle = "FreddyBoi";
+        id = new UUID(0, 0);
+        chirpList = new ArrayList<>();
+        userPreferences = new ArrayList<>();
     }
 
     public void setName(String name) {
@@ -44,7 +56,15 @@ class User {
         this.id = id;
     }
 
-    public void setChirpList(ArrayList<Chirp> chirpList) {
+    public ArrayList<UUID> getUserPreferences() {
+        return userPreferences;
+    }
+
+    public void setUserPreferences(ArrayList<UUID> userPreferences) {
+        this.userPreferences = userPreferences;
+    }
+
+    public void setChirpList(ArrayList<UUID> chirpList) {
         this.chirpList = chirpList;
     }
 
@@ -68,11 +88,11 @@ class User {
         return id;
     }
 
-    public ArrayList<Chirp> getChirpList() {
+    public ArrayList<UUID> getChirpList() {
         return chirpList;
     }
 
-    public void addChirp(Chirp chirp) {
-        chirpList.add(chirp);
+    public void addChirp(UUID chirpID) {
+        chirpList.add(chirpID);
     }
 }
