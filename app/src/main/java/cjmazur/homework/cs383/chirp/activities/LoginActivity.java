@@ -9,16 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import cjmazur.homework.cs383.chirp.R;
-import cjmazur.homework.cs383.chirp.models.UserLoginInfo;
+import cjmazur.homework.cs383.chirp.models.ActiveUserHandler;
+import cjmazur.homework.cs383.chirp.models.RequestManager;
 
 /**
  * @author David Windsor
@@ -35,8 +28,6 @@ import cjmazur.homework.cs383.chirp.models.UserLoginInfo;
 public class LoginActivity extends AppCompatActivity {
 
     private static final String FILE_STORAGE_NAME = "login_info.serializedObject";
-
-    private UserLoginInfo login;
 
     private EditText emailField;
     private EditText passwordField;
@@ -77,55 +68,25 @@ public class LoginActivity extends AppCompatActivity {
 
         //if there is a user login already saved, this will load it into the text fields
         loadUserLogin();
-        if (login != null) {
-            emailField.setText(login.getEmail());
-            passwordField.setText(login.getUserPassword());
-        }
+        //TODO if text fields aren't null after loadUserLogin, click the login buttons ourselves
 
     }
 
     private boolean verifyUser(String userEmail, String userPassword) {
-        //TODO verify the user with the server
-        return true;
+        RequestManager.getInstance(this).sendUserVerificationRequest(this, userEmail, userPassword);
+        return (!ActiveUserHandler.getInstance().getUser().getEmail().equals("john.doe@gmail.com"));
     }
 
     private void saveUserLogin() {
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File(getFilesDir(), FILE_STORAGE_NAME)));
-            oos.writeObject(login);
-            oos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Login information could not be saved", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Login information could not be saved", Toast.LENGTH_SHORT).show();
-        }
+        //TODO fix using sharedPrefManager
     }
 
     private void loadUserLogin() {
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File(getFilesDir(), FILE_STORAGE_NAME)));
-            login = (UserLoginInfo) ois.readObject();
-            ois.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Login information could not be loaded", Toast.LENGTH_SHORT).show();
-            login = null;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Login information could not be loaded", Toast.LENGTH_SHORT).show();
-            login = null;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Login information could not be loaded", Toast.LENGTH_SHORT).show();
-            login = null;
-        }
+        //TODO fix using sharedPrefManager
     }
 
     public void deleteSavedUserLoginInformation() {
-        login = null;
-        saveUserLogin();
+        //TODO fix using sharedPrefManager
     }
 
 

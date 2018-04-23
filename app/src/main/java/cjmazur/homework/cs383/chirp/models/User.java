@@ -7,92 +7,56 @@ import java.util.UUID;
  * Created by CJ on 3/28/2018.
  */
 
-class User {
-    private String name;
+public class User {
     private String email;
     private String password;
     private String handle;
-    private UUID id;
-    private ArrayList<UUID> chirpList;
-    private ArrayList<UUID> userPreferences; //TODO set this up
+    private long id;
 
-    public User(String name, String email, String password, String handle, UUID id, ArrayList<UUID> chirpList, ArrayList<UUID> userPreferences) {
-        this.name = name;
+    public User(String email, String password, String handle, long id) {
         this.email = email;
         this.password = password;
         this.handle = handle;
         this.id = id;
-        this.chirpList = chirpList;
-        this.userPreferences = userPreferences;
     }
 
     public User() {
-        name = "Fred Flintstone";
         email = "john.doe@gmail.com";
         password = "pw";
         handle = "FreddyBoi";
-        id = new UUID(0, 0);
-        chirpList = new ArrayList<>();
-        userPreferences = new ArrayList<>();
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setHandle(String handle) {
-        this.handle = handle;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public ArrayList<UUID> getUserPreferences() {
-        return userPreferences;
-    }
-
-    public void setUserPreferences(ArrayList<UUID> userPreferences) {
-        this.userPreferences = userPreferences;
-    }
-
-    public void setChirpList(ArrayList<UUID> chirpList) {
-        this.chirpList = chirpList;
-    }
-
-    public String getName() {
-        return name;
+        id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getHandle() {
         return handle;
     }
 
-    public UUID getId() {
+    public void setHandle(String handle) {
+        this.handle = handle;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public ArrayList<UUID> getChirpList() {
-        return chirpList;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void addChirp(UUID chirpID) {
-        chirpList.add(chirpID);
-    }
 }

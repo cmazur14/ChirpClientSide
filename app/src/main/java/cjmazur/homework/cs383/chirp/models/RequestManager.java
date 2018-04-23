@@ -19,16 +19,26 @@ import cjmazur.homework.cs383.chirp.volley.RequestQueueSingleton;
  * Responsible for handling requests to and from the server
  */
 
+//TODO deprecate this
+
 public class RequestManager {
 
     private static RequestManager mInstance;
 
-    private static final String BASE_URL = "http://10.0.2.2:5010";
+    private final String BASE_URL = "http://10.0.2.2:5010";
     private RequestQueue requestQueue;
 
-    public void sendListUsersRequest(Context c, final ListUsersHandler h) {
+    private RequestManager(Context c) {
+        requestQueue = getRequestQueue(c);
+    }
+
+    public static RequestManager getInstance(Context c) {
+        if (mInstance == null) mInstance = new RequestManager(c);
+        return mInstance;
+    }
+
+    public void sendListUsersRequest(Context c) {
         final Context context = c;
-        final ListUsersHandler handler = h;
         RequestQueue queue = getRequestQueue(c);
         String url = BASE_URL + "/users";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -37,7 +47,7 @@ public class RequestManager {
                 Log.d("HTTP", "response is: " + response);
                 Gson gson = new Gson();
                 User[] users = gson.fromJson(response, User[].class);
-                h.setUsersList(users);
+                ListUsersHandler.getInstance().setUsersList(users);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -48,7 +58,7 @@ public class RequestManager {
                     public void run() {
                         try {
                             Thread.sleep(500);
-                            sendListUsersRequest(context, handler);
+                            sendListUsersRequest(context);
                         } catch (InterruptedException e) {
                             Log.d("THREAD", "Sending new request failed");
                             e.printStackTrace();
@@ -56,6 +66,29 @@ public class RequestManager {
                     }
                 });
                 thread.start();
+            }
+        });
+
+        queue.add(stringRequest);
+    }
+
+    public synchronized void sendUserVerificationRequest(Context c, String username, String password) {
+        final String pw = password;
+        RequestQueue queue = getRequestQueue(c);
+        String url = BASE_URL + "/users/" + username;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("HTTP", "response is: " + response);
+                Gson gson = new Gson();
+                User user = gson.fromJson(response, User.class);
+                if (user.getPassword().equals(pw))
+                    ActiveUserHandler.getInstance().setUser(user);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("HTTP", "request has failed");
             }
         });
 

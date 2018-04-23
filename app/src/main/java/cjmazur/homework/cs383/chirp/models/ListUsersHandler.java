@@ -12,15 +12,15 @@ import java.util.Arrays;
  * data provided by the HTTPResponse;
  */
 
-class ListUsersHandler {
+public class ListUsersHandler {
     private ArrayList<User> mUserList;
-    private ListUsersHandler mInstance;
+    private static ListUsersHandler mInstance;
 
     private ListUsersHandler() {
         mUserList = new ArrayList<>();
     }
 
-    public synchronized ListUsersHandler getInstance() {
+    public static synchronized ListUsersHandler getInstance() {
         if (mInstance == null)
             mInstance = new ListUsersHandler();
         return mInstance;

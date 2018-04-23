@@ -4,16 +4,18 @@ package cjmazur.homework.cs383.chirp.models;
  * Created by CJ on 4/14/2018.
  */
 
+//TODO deprecate this
+
 public class ActiveUserHandler {
 
-    private ActiveUserHandler mInstance;
+    private static ActiveUserHandler mInstance;
     private User mUser;
 
     private ActiveUserHandler() {
         mUser = getUser();
     }
 
-    public ActiveUserHandler getInstance() {
+    public static ActiveUserHandler getInstance() {
         if (mInstance == null) mInstance = new ActiveUserHandler();
         return mInstance;
     }
