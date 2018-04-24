@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cjmazur.homework.cs383.chirp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,7 +21,7 @@
         <activity android:name=".activities.RegistrationActivity" />
         <activity android:name=".activities.RecentChirpsActivity" />
         <activity android:name=".activities.CreateChirpActivity" />
-        <activity android:name=".activities.EditWatchlistActivity"></activity>
+        <activity android:name=".activities.EditWatchlistActivity" />
     </application>
 
 </manifest>

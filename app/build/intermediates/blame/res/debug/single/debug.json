@@ -584,10 +584,6 @@
         "source": "C:\\Users\\David\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.0.aar\\2f56d896a23dbcd16276f31956b877df\\res\\drawable-xhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png"
     },
     {
-        "merged": "C:\\Users\\CJ\\AndroidStudioProjects\\Chirp2\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_single_fragment.xml.flat",
-        "source": "C:\\Users\\CJ\\AndroidStudioProjects\\Chirp2\\app\\src\\main\\res\\layout\\activity_single_fragment.xml"
-    },
-    {
         "merged": "C:\\Users\\CJ\\AndroidStudioProjects\\Chirp2\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_tint_seek_thumb.xml.flat",
         "source": "C:\\Users\\CJ\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.0.aar\\d4a50862758efec1530b38c29c957b27\\res\\color\\abc_tint_seek_thumb.xml"
     },
