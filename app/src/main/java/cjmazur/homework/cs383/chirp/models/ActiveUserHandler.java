@@ -4,8 +4,8 @@ package cjmazur.homework.cs383.chirp.models;
  * Created by CJ on 4/14/2018.
  */
 
-//TODO deprecate this
-
+//TODO deprecate this class
+@Deprecated
 public class ActiveUserHandler {
 
     private static ActiveUserHandler mInstance;

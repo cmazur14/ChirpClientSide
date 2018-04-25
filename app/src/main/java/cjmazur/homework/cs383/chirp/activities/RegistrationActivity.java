@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import cjmazur.homework.cs383.chirp.R;
 import cjmazur.homework.cs383.chirp.models.User;
@@ -60,8 +62,18 @@ public class RegistrationActivity extends AppCompatActivity {
         final String pw = passwordBox.getText().toString().trim();
         final String pwVerify = passwordVerificationBox.getText().toString().trim();
         final String handle = handleBox.getText().toString().trim();
+        final long id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
 
         final String regex = "^[a-zA-Z0-9]+$";
+
+        final JSONObject body = new JSONObject();
+        try {
+            body.put("email", email);
+            body.put("handle", handle);
+            body.put("password", pw);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         //first, we double check that the user didn't mess up data entry
 
@@ -107,25 +119,25 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
 
-        StringRequest sr = new StringRequest(ImportantURLs.BASE_URL,
+        StringRequest sr = new StringRequest(StringRequest.Method.POST,
+                ImportantURLs.BASE_URL + "users/c",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.d("ServerCommunication", response);
                         try {
                             JSONObject obj = new JSONObject(response);
+                            if (obj.getBoolean("user_created")) {
+                                Toast.makeText(getApplicationContext(), "User successfully created!", Toast.LENGTH_LONG).show();
 
-                            if (!obj.getBoolean("error")) {
-                                Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show();
-
-                                //interpret the user from the response
-                                JSONObject userJson = obj.getJSONObject("user");
+                                //"User created"
 
                                 User user = new User(
                                         //email, pw, handle, id
-                                        userJson.getString("email"),
-                                        userJson.getString("password"),
-                                        userJson.getString("handle"),
-                                        userJson.getLong("id")
+                                        obj.getString("email"),
+                                        obj.getString("password"),
+                                        obj.getString("handle"),
+                                        obj.getLong("id")
                                 );
 
                                 //store the logged-in user in sharedPreferences
@@ -135,7 +147,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                 finish();
                                 startActivity(new Intent(getApplicationContext(), RecentChirpsActivity.class));
                             } else {
-                                Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -148,13 +160,15 @@ public class RegistrationActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }) {
+            
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                params.put("password", pw);
-                params.put("handle", handle);
-                return params;
+            public byte[] getBody() throws AuthFailureError {
+                return body.toString().getBytes();
+            }
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
             }
         };
 

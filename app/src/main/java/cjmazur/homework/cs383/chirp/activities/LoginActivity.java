@@ -3,15 +3,32 @@ package cjmazur.homework.cs383.chirp.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import cjmazur.homework.cs383.chirp.R;
 import cjmazur.homework.cs383.chirp.models.ActiveUserHandler;
 import cjmazur.homework.cs383.chirp.models.RequestManager;
+import cjmazur.homework.cs383.chirp.models.User;
+import cjmazur.homework.cs383.chirp.volley.ImportantURLs;
+import cjmazur.homework.cs383.chirp.volley.SharedPrefManager;
+import cjmazur.homework.cs383.chirp.volley.VolleySingleton;
 
 /**
  * @author David Windsor
@@ -54,39 +71,93 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (verifyUser(emailField.getText().toString(), passwordField.getText().toString())) {
-                    Intent intent = RecentChirpsActivity.newIntent(view.getContext());
-                    startActivity(intent);
-                    //TODO set it up so it gets and starts the intent for the logged-in user to go to the correct page
-                } else {
-                    Toast.makeText(LoginActivity.this, "We're sorry, but that login information doesn't seem to be in our system. Please try a different email and password, or register as a new user!", Toast.LENGTH_LONG).show();
-                    emailField.setText("");
-                    passwordField.setText("");
-                }
+                verifyUser();
             }
         });
 
         //if there is a user login already saved, this will load it into the text fields
+        //and then verify that the saved login information is correct. If it is, then it will log
+        //in the user
         loadUserLogin();
-        //TODO if text fields aren't null after loadUserLogin, click the login buttons ourselves
-
     }
 
-    private boolean verifyUser(String userEmail, String userPassword) {
-        RequestManager.getInstance(this).sendUserVerificationRequest(this, userEmail, userPassword);
-        return (!ActiveUserHandler.getInstance().getUser().getEmail().equals("john.doe@gmail.com"));
-    }
+    private void verifyUser() {
+        StringRequest sr = new StringRequest(StringRequest.Method.GET,
+                ImportantURLs.BASE_URL + "users/fe/" + emailField.getText().toString().trim(),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("ServerCommunication", response);
+                        try {
+                            if (response != null) {
+                                JSONObject obj = new JSONObject(response);
 
-    private void saveUserLogin() {
-        //TODO fix using sharedPrefManager
+                                User user = new User(
+                                        //email, pw, handle, id
+                                        obj.getString("email"),
+                                        obj.getString("password"),
+                                        obj.getString("handle"),
+                                        obj.getLong("id")
+                                );
+
+                                if (user.getPassword().equals(passwordField.getText().toString().trim())) {
+                                    //store the logged-in user in sharedPreferences
+                                    SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
+
+                                    //start the recentChirpsActivity
+                                    finish();
+                                    startActivity(new Intent(getApplicationContext(), RecentChirpsActivity.class));
+                                } else {
+                                    passwordField.setError("Incorrect Password!");
+                                    passwordField.requestFocus();
+                                }
+                            } else {
+                                emailField.setError("Invalid Email!");
+                                emailField.requestFocus();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", emailField.getText().toString().trim());
+                return params;
+            }
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+        };
+
+        VolleySingleton.getInstance(this).addToRequestQueue(sr);
     }
 
     private void loadUserLogin() {
-        //TODO fix using sharedPrefManager
+        User storedUser = SharedPrefManager.getInstance(getApplicationContext()).getUser();
+        if (storedUser.getEmail() == null)
+            return;
+        if (storedUser.getPassword() == null)
+            return;
+        emailField.setText(storedUser.getEmail());
+        passwordField.setText(storedUser.getPassword());
+        verifyUser();
     }
 
-    public void deleteSavedUserLoginInformation() {
-        //TODO fix using sharedPrefManager
+    public void logoutUser() {
+        SharedPrefManager.getInstance(getApplicationContext()).logout();
+        emailField.setText("");
+        passwordField.setText("");
     }
 
 

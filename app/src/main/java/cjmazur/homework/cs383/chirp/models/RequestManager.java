@@ -19,8 +19,7 @@ import cjmazur.homework.cs383.chirp.volley.RequestQueueSingleton;
  * Responsible for handling requests to and from the server
  */
 
-//TODO deprecate this
-
+@Deprecated
 public class RequestManager {
 
     private static RequestManager mInstance;

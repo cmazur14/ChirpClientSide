@@ -16,7 +16,7 @@
     <string name="verify_password_hint">Verify Password</string>
     <string name="create_chirp_button">Create new Chirp!</string>
     <string name="edit_watchlist_button">Edit Watchlist!</string>
-    <string name="chirp_content_placeholder">This is a string that has some content. This is a string that has some content.This is a string that has some content. This is a string that has some content. This is a string that has some content. This is a string that has some content.This is a string that has some content. This is a string that has some content.</string>
+    <string name="chirp_content_placeholder">Chirp chirp chirpety chirp. This is a Chirp that chirps chirpily</string>
     <string name="chirp_author_placeholder">Fred Flintstone</string>
     <string name="chirp_date_placeholder">Posted 5 minutes ago...</string>
 

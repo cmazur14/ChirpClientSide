@@ -6,7 +6,7 @@ package cjmazur.homework.cs383.chirp.volley;
 
 public class ImportantURLs {
 
-    public static final String BASE_URL = "http://10.0.2.2:5010";
+    public static final String BASE_URL = "http://chirpserver-env2.us-east-2.elasticbeanstalk.com/";
 
     public String getBaseUrl() {
         return BASE_URL;
