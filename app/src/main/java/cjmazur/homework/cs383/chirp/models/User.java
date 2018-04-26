@@ -1,6 +1,9 @@
 package cjmazur.homework.cs383.chirp.models;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -12,19 +15,18 @@ public class User {
     private String password;
     private String handle;
     private long id;
+    private ArrayList<Long> watchList;
 
     public User(String email, String password, String handle, long id) {
         this.email = email;
         this.password = password;
         this.handle = handle;
         this.id = id;
+        watchList = new ArrayList<>();
     }
 
     public User() {
-        email = "john.doe@gmail.com";
-        password = "pw";
-        handle = "FreddyBoi";
-        id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+        this("fred@bedrock.com", "password", "FreddyBoi", UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE);
     }
 
     public String getEmail() {
@@ -58,5 +60,17 @@ public class User {
     public void setId(long id) {
         this.id = id;
     }
+
+    public void addToWatchList(long newUserId) {
+        watchList.add(newUserId);
+    }
+
+    public ArrayList<Long> getWatchList() {
+        ArrayList<Long> listCopy = new ArrayList<>();
+        for (long id : watchList)
+            listCopy.add(id);
+        return listCopy;
+    }
+
 
 }

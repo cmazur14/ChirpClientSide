@@ -12,6 +12,7 @@ import java.util.Arrays;
  * data provided by the HTTPResponse;
  */
 
+@Deprecated
 public class ListUsersHandler {
     private ArrayList<User> mUserList;
     private static ListUsersHandler mInstance;

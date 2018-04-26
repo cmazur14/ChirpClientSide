@@ -7,6 +7,7 @@ import java.util.UUID;
  * Created by CJ on 4/14/2018.
  */
 
+@Deprecated
 public class WatchlistHandler {
 
     private WatchlistHandler mInstance;
