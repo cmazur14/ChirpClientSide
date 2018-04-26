@@ -48,32 +48,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registration_verify_password" />
 
-    <TextView
-        android:id="@+id/registration_invalid_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="8dp"
-        android:hint="@string/registration_email_error"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/registration_password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registration_email" />
-
-    <TextView
-        android:id="@+id/registration_invalid_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/registration_password_error"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/registration_handle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registration_password" />
-
     <Button
         android:id="@+id/registration_button"
         android:layout_width="wrap_content"

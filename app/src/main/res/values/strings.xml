@@ -19,5 +19,8 @@
     <string name="chirp_content_placeholder">Chirp chirp chirpety chirp. This is a Chirp that chirps chirpily</string>
     <string name="chirp_author_placeholder">Fred Flintstone</string>
     <string name="chirp_date_placeholder">Posted 5 minutes ago...</string>
+    <string name="new_chirp_hint">What would you like to say?</string>
+    <string name="new_chirp_post_button_text">Post your Chirp!</string>
+    <string name="logout_button_text">Log Out of Chirp</string>
 
 </resources>

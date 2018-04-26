@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cjmazur.homework.cs383.chirp.R;
+import cjmazur.homework.cs383.chirp.volley.SharedPrefManager;
+import cjmazur.homework.cs383.chirp.volley.VolleySingleton;
 
 public class RecentChirpsActivity extends AppCompatActivity {
 
@@ -31,6 +33,7 @@ public class RecentChirpsActivity extends AppCompatActivity {
     private RecyclerView chirpsView;
     private ArrayList<Chirp> chirps;
     private ChirpAdapter chirpsAdapter;
+    private Button logoutButton;
 
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, RecentChirpsActivity.class);
@@ -57,11 +60,23 @@ public class RecentChirpsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        logoutButton = findViewById(R.id.logout_button);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logoutUser();
+            }
+        });
         chirpsView = findViewById(R.id.chirps_recycler_view);
         chirpsView.setLayoutManager(new LinearLayoutManager(this));
         chirps = new ArrayList<>();
 
         updateChirpsList();
+    }
+
+    private void logoutUser() {
+        SharedPrefManager.getInstance(getApplicationContext()).logout();
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
     private void updateChirpsList() {
