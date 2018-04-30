@@ -22,5 +22,6 @@
     <string name="new_chirp_hint">What would you like to say?</string>
     <string name="new_chirp_post_button_text">Post your Chirp!</string>
     <string name="logout_button_text">Log Out of Chirp</string>
+    <string name="confirm_watchlist_button_text">Follow Selected Users!</string>
 
 </resources>
