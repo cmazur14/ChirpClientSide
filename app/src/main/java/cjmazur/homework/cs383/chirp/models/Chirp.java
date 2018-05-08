@@ -1,9 +1,8 @@
 package cjmazur.homework.cs383.chirp.models;
 
-import android.media.Image;
 import android.support.annotation.Nullable;
 
-import java.time.ZonedDateTime;
+import java.util.UUID;
 
 /**
  * Created by CJ on 3/28/2018.
@@ -12,37 +11,53 @@ import java.time.ZonedDateTime;
 public class Chirp {
     private String message;
     private String date;
-    private String author;
-    private Image image;
+    private String userId;
+    private String id;
 
-    public Chirp(@Nullable String message, String date, String auth,@Nullable Image img) {
+
+    public Chirp(@Nullable String message, String date, String userId) {
         this.message = message;
         this.date = date;
-        author = auth;
-        image = img;
+        this.userId = userId;
+        id = UUID.randomUUID().toString();
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public Chirp() {
     }
 
     public String getMessage() {
         return message;
     }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public String getDate() {
         return date;
     }
 
-    public String getAuthor() {
-        return author;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public Image getImage() {
-        return image;
+    public String getUserId() {
+        return userId;
     }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
+
+
 }

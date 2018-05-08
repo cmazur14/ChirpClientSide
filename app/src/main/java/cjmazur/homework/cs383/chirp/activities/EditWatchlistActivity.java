@@ -16,6 +16,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -26,24 +28,26 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cjmazur.homework.cs383.chirp.R;
 import cjmazur.homework.cs383.chirp.models.User;
 import cjmazur.homework.cs383.chirp.volley.ImportantURLs;
 import cjmazur.homework.cs383.chirp.volley.RequestQueueSingleton;
+import cjmazur.homework.cs383.chirp.volley.SharedPrefManager;
+import cjmazur.homework.cs383.chirp.volley.VolleySingleton;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
+
 
 public class EditWatchlistActivity extends AppCompatActivity {
 
     private Button confirmWatchlistButton;
     private RecyclerView userRecyclerView;
     private ArrayList<User> allUserList;
-    private ArrayList<String> selectedUserList;
+    private ArrayList<User> selectedUserList;
     private UserSelectorAdapter userAdapter;
 
     @Override
@@ -58,8 +62,6 @@ public class EditWatchlistActivity extends AppCompatActivity {
         userRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         populateAllUserList();
-
-        updateUserList();
 
         confirmWatchlistButton = findViewById(R.id.confirm_watchlist_button);
         confirmWatchlistButton.setOnClickListener(new View.OnClickListener() {
@@ -81,23 +83,17 @@ public class EditWatchlistActivity extends AppCompatActivity {
                         ObjectMapper mapper = new ObjectMapper();
 
                         try {
-                            List<String> usersAsList = new ArrayList<>();
+                            allUserList.clear();
 
-                            JSONArray objs = new JSONArray(response);
-                            JSONObject object;
+                            JSONArray objects = new JSONArray(response);
 
-                            int numObjects = objs.length();
+                            int numObjects = objects.length();
                             for (int i = 0; i < numObjects; i++) {
                                 //usersAsList.add(mapper.readValue(objs.getString(i), User.class));
-                                object = objs.getJSONObject(i);
-                                usersAsList.add(object.getString("handle"));
+                                allUserList.add(mapper.readValue(objects.getString(i), User.class));
                             }
 
-                            for (String s : usersAsList) {
-                                Log.d("JSONStuff", s);
-                            }
-
-                            userAdapter = new UserSelectorAdapter(usersAsList);
+                            userAdapter = new UserSelectorAdapter(allUserList);
                             userRecyclerView.setAdapter(userAdapter);
 
                             //Log.d("ServerCommunication", userNames.toString());
@@ -107,9 +103,9 @@ public class EditWatchlistActivity extends AppCompatActivity {
                             e.printStackTrace();
                         } */catch (JSONException e) {
                             e.printStackTrace();
-                        } /*catch (IOException e) {
+                        } catch (IOException e) {
                             e.printStackTrace();
-                        } */
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -122,12 +118,45 @@ public class EditWatchlistActivity extends AppCompatActivity {
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(sr);
     }
 
-    private void updateUserList() {
-        //TODO
-    }
-
     private void confirmWatchlistButtonClicked() {
-        //TODO
+        StringRequest sr;
+        for (User user : selectedUserList) {
+            final User finalUser = user;
+            sr = new StringRequest(StringRequest.Method.PUT,
+                    ImportantURLs.BASE_URL + "users/aw/" + user.getId(),
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d("ServerCommunication", response);
+                            try {
+                                JSONObject obj = new JSONObject(response);
+                                if (obj.getBoolean("user_added"))
+                                    Log.d("ServerCommunication", "User successfully added");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(EditWatchlistActivity.this, "It seems there was an error communicating with the server!", Toast.LENGTH_SHORT).show();
+                    Log.d("ServerCommunication", error.getMessage());
+                }
+            }
+            ) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("watcherId", Long.toString(SharedPrefManager.getInstance(getApplicationContext()).getUser().getId()));
+                    params.put("watchedId", Long.toString(finalUser.getId()));
+                    return params;
+                }
+            };
+
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(sr);
+        }
+        startActivity(new Intent(getApplicationContext(), RecentChirpsActivity.class));
+
     }
 
     public static Intent newIntent(Context packageContext) {
@@ -138,16 +167,16 @@ public class EditWatchlistActivity extends AppCompatActivity {
     private class userSelectorHolder extends RecyclerView.ViewHolder {
         private CheckBox userBox;
 
-        private String userName;
+        private User user;
 
         public userSelectorHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.watchlist_item, parent, false));
             userBox = itemView.findViewById(R.id.user_checkbox);
         }
 
-        public void bind(final String inputName) {
-            userName = inputName;
-            userBox.setText(userName);
+        public void bind(final User inputName) {
+            user = inputName;
+            userBox.setText(user.getHandle());
             userBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -163,9 +192,9 @@ public class EditWatchlistActivity extends AppCompatActivity {
     }
 
     private class UserSelectorAdapter extends RecyclerView.Adapter<userSelectorHolder> {
-        private List<String> userNames;
+        private List<User> users;
 
-        public UserSelectorAdapter(List<String> listOfUsers) { userNames = listOfUsers; }
+        public UserSelectorAdapter(List<User> listOfUsers) { users = listOfUsers; }
 
         @NonNull
         @Override
@@ -176,12 +205,12 @@ public class EditWatchlistActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull userSelectorHolder holder, int position) {
-            holder.bind(userNames.get(position));
+            holder.bind(users.get(position));
         }
 
         @Override
         public int getItemCount() {
-            return userNames.size();
+            return users.size();
         }
     }
 }
